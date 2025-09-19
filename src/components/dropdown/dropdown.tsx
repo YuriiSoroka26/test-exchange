@@ -2,7 +2,7 @@ import type { DropdownProps } from "../../types/dropdown";
 import styles from "./dropdown.module.css";
 
 export default function Dropdown<T extends string | number>({
-  label,
+  // label, // Currently unused but kept for future use
   options,
   value,
   onChange,

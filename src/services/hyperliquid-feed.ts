@@ -3,10 +3,10 @@ import type {
   OrderBookSnapshot,
   TradeEvent,
   Listener,
-  L2LevelRaw,
-  L2BookData,
+  // L2LevelRaw, // Currently unused but kept for future use
+  // L2BookData, // Currently unused but kept for future use
   L2BookMessage,
-  TradeRaw,
+  // TradeRaw, // Currently unused but kept for future use
   TradesMessage,
 } from "../types/hyperliquid";
 

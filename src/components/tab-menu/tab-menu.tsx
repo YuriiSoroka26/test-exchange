@@ -6,8 +6,8 @@ export default function TabMenu({
   activeTab,
   onChange,
   onActionClick,
-  actionLabel = "Action",
-}: TabMenuProps) {
+}: // actionLabel = "Action", // Currently unused but kept for future use
+TabMenuProps) {
   return (
     <div className={styles.container}>
       <div className={styles.tabs}>

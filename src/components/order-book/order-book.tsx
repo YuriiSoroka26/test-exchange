@@ -24,8 +24,8 @@ export default function OrderBook({
     return idx === -1 ? 0 : s.length - idx - 1;
   }, [tickSize]);
 
-  const maxBid = bids.length ? bids[0].price : 0;
-  const minAsk = asks.length ? asks[0].price : 0;
+  // const maxBid = bids.length ? bids[0].price : 0; // Currently unused but kept for future use
+  // const minAsk = asks.length ? asks[0].price : 0; // Currently unused but kept for future use
 
   // Calculate cumulative totals for background bars
   const { bidsWithTotals, asksWithTotals, maxTotal } = useMemo(() => {

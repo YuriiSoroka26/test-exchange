@@ -12,7 +12,7 @@
   gap: 8px;
   padding: 0 10px;
   color: #aaaaaa;
-  font-family: Inter;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 12px;
@@ -58,7 +58,7 @@
   gap: 8px;
   padding: 0 10px;
   height: 24px;
-  font-family: Inter;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 12px;
@@ -102,13 +102,13 @@
   text-align: left;
 }
 .size {
-  color: #cbd3e1;
+  color: #ffffff;
   position: relative;
   z-index: 2;
   text-align: right;
 }
 .total {
-  color: #8b93a7;
+  color: #ffffff;
   position: relative;
   z-index: 2;
   text-align: right;
@@ -117,7 +117,7 @@
 .mid {
   padding: 0 10px;
   height: 36px;
-  font-family: Inter;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 18px;

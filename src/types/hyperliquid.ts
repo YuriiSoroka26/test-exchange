@@ -30,7 +30,7 @@ type TradeRaw = {
 };
 type TradesMessage = { channel: "trades"; data: TradeRaw[] };
 
-export {
+export type {
   Listener,
   L2LevelRaw,
   L2BookData,

@@ -1,0 +1,18 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  color: #8b93a7;
+  font-size: 12px;
+}
+
+.select {
+  background: #0f1115;
+  color: #e6e9ef;
+  border: 1px solid #1f232b;
+  border-radius: 6px;
+  padding: 6px 8px;
+}

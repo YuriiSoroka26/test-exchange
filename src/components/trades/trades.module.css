@@ -1,0 +1,43 @@
+.container {
+  width: 100%;
+  background: #0b0d12;
+  border: 1px solid #1f232b;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 8px 12px;
+  color: #8b93a7;
+  font-size: 12px;
+  border-bottom: 1px solid #1f232b;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.time {
+  color: #8b93a7;
+}
+.priceBuy {
+  color: #27ae60;
+}
+.priceSell {
+  color: #ff6b6b;
+}
+.size {
+  color: #cbd3e1;
+}

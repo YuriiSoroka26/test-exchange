@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tabs {
+  display: inline-flex;
+  background: #101216;
+  border: 1px solid #1f232b;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tab {
+  padding: 8px 12px;
+  color: #8b93a7;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.tabActive {
+  padding: 8px 12px;
+  color: #e6e9ef;
+  background: #1a1f28;
+  border: none;
+  cursor: pointer;
+}
+
+.action {
+  padding: 8px 14px;
+  background: #2f80ed;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

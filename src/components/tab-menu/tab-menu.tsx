@@ -1,5 +1,5 @@
-import type { TabMenuProps } from "../../types";
-import { TAB_LABELS } from "../../constants";
+import type { TabMenuProps } from "./tab-menu-props";
+import { TAB_LABELS } from "@app/constants";
 import { HiDotsVertical } from "react-icons/hi";
 import styles from "./tab-menu.module.css";
 
@@ -7,8 +7,7 @@ export default function TabMenu({
   activeTab,
   onChange,
   onActionClick,
-}: // actionLabel = "Action", // Currently unused but kept for future use
-TabMenuProps) {
+}: TabMenuProps) {
   return (
     <div className={styles.container}>
       <div className={styles.tabs}>

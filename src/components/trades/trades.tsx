@@ -1,11 +1,11 @@
-import type { TradesProps } from "../../types";
-import { formatNumber } from "../../utils";
+import type { TradesProps } from "./trades-props";
+import { formatNumber } from "@app/utils";
 import {
   TRADES_HEADERS,
   DEFAULT_PRICE_DECIMALS,
   DEFAULT_SIZE_DECIMALS,
   MAX_TRADES_DISPLAY,
-} from "../../constants";
+} from "@app/constants";
 import styles from "./trades.module.css";
 
 export default function Trades({ trades, symbol = "BTC" }: TradesProps) {

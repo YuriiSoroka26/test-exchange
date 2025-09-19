@@ -1,4 +1,4 @@
-import type { LayoutProps } from "../../types";
+import type { LayoutProps } from "./layout-props";
 import styles from "./layout.module.css";
 
 export default function Layout({ header, children }: LayoutProps) {

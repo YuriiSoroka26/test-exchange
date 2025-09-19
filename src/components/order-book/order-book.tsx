@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import type { OrderBookProps } from "../../types";
+import type { OrderBookProps } from "./order-book-props";
 import {
   formatNumber,
   calculateDecimals,
   calculateOrderBookTotals,
-} from "../../utils";
-import { ORDER_BOOK_HEADERS } from "../../constants";
+} from "@app/utils";
+import { ORDER_BOOK_HEADERS } from "@app/constants";
 import styles from "./order-book.module.css";
 
 export default function OrderBook({
@@ -15,14 +15,8 @@ export default function OrderBook({
   symbol = "BTC",
   lastTrade,
 }: OrderBookProps) {
-  console.log("OrderBook props:", { bids, asks, tickSize, symbol });
-
   const decimals = useMemo(() => calculateDecimals(tickSize), [tickSize]);
 
-  // const maxBid = bids.length ? bids[0].price : 0; // Currently unused but kept for future use
-  // const minAsk = asks.length ? asks[0].price : 0; // Currently unused but kept for future use
-
-  // Calculate cumulative totals for background bars
   const { bidsWithTotals, asksWithTotals, maxTotal } = useMemo(
     () => calculateOrderBookTotals(bids, asks),
     [bids, asks]

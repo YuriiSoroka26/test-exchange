@@ -1,11 +1,11 @@
 import TabMenu from "../tab-menu";
 import Dropdown from "../dropdown";
-import type { HeaderBarProps } from "../../types";
+import type { HeaderBarProps } from "./header-bar-props";
 import {
   TICK_SIZE_OPTIONS,
   ACTION_LABELS,
   DROPDOWN_LABELS,
-} from "../../constants";
+} from "@app/constants";
 import styles from "./header-bar.module.css";
 
 export default function HeaderBar({
@@ -18,11 +18,11 @@ export default function HeaderBar({
   symbols,
   onSymbolChange,
 }: HeaderBarProps) {
-  const tickOptions = TICK_SIZE_OPTIONS.map((v) => ({
+  const tickOptions = TICK_SIZE_OPTIONS.map(v => ({
     label: v.toString(),
     value: v,
   }));
-  const symbolOptions = symbols.map((s) => ({ label: s, value: s }));
+  const symbolOptions = symbols.map(s => ({ label: s, value: s }));
 
   return (
     <div className={styles.container}>

@@ -1,4 +1,4 @@
-import type { Level } from "../types/level";
+import type { Level } from "@app/types/level";
 
 export interface LevelWithTotal extends Level {
   total: number;
@@ -18,13 +18,13 @@ export function calculateOrderBookTotals(
   asks: Level[]
 ): OrderBookTotals {
   let cumulativeBid = 0;
-  const bidsWithTotals = bids.map((bid) => {
+  const bidsWithTotals = bids.map(bid => {
     cumulativeBid += bid.size;
     return { ...bid, total: cumulativeBid };
   });
 
   let cumulativeAsk = 0;
-  const asksWithTotals = asks.map((ask) => {
+  const asksWithTotals = asks.map(ask => {
     cumulativeAsk += ask.size;
     return { ...ask, total: cumulativeAsk };
   });

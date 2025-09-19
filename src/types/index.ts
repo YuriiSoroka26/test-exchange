@@ -1,10 +1,6 @@
 // Core types
 export type { Option } from "./option";
-export type { DropdownProps } from "./dropdown-props";
 export type { TabKey } from "./tab-key";
-export type { TabMenuProps } from "./tab-menu-props";
-export type { HeaderBarProps } from "./header-bar-props";
-export type { LayoutProps } from "./layout-props";
 
 // Market and trading types
 export type { MarketSymbol } from "./market-symbol";
@@ -20,11 +16,9 @@ export type { TradesMessage } from "./trades-message";
 // Order book types
 export type { Level } from "./level";
 export type { LastTrade } from "./last-trade";
-export type { OrderBookProps } from "./order-book-props";
 
 // Trades types
 export type { TradeItem } from "./trade-item";
-export type { TradesProps } from "./trades-props";
 
 // Hyperliquid API types
 export type { HyperliquidFill } from "./hyperliquid-fill";

@@ -3,8 +3,8 @@ import type {
   OrderBookSnapshot,
   TradeEvent,
   Listener,
-} from "../types";
-import { isL2BookMessage, isTradesMessage } from "../utils";
+} from "@app/types";
+import { isL2BookMessage, isTradesMessage } from "@app/utils";
 
 export class HyperliquidFeed {
   private ws?: WebSocket;
@@ -46,25 +46,24 @@ export class HyperliquidFeed {
 
         if (isL2BookMessage(parsed)) {
           const [rawBids, rawAsks] = parsed.data.levels;
-          // Get more levels for better grouping (like Binance)
           const bids: Array<[number, number]> = rawBids
             .slice(0, 50)
-            .map((l) => [Number(l.px), Number(l.sz)]);
+            .map(l => [Number(l.px), Number(l.sz)]);
           const asks: Array<[number, number]> = rawAsks
             .slice(0, 50)
-            .map((l) => [Number(l.px), Number(l.sz)]);
+            .map(l => [Number(l.px), Number(l.sz)]);
           const snapshot: OrderBookSnapshot = { bids, asks };
-          this.orderBookListeners.forEach((cb) => cb(snapshot));
+          this.orderBookListeners.forEach(cb => cb(snapshot));
         }
 
         if (isTradesMessage(parsed)) {
-          const trades: TradeEvent[] = parsed.data.map((t) => ({
+          const trades: TradeEvent[] = parsed.data.map(t => ({
             time: t.time ?? Date.now(),
             price: Number(t.px),
             size: Number(t.sz),
             side: t.side === "B" || t.side === "buy" ? "buy" : "sell",
           }));
-          this.tradeListeners.forEach((cb) => cb(trades));
+          this.tradeListeners.forEach(cb => cb(trades));
         }
       } catch {
         // ignore parse errors

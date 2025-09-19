@@ -1,5 +1,5 @@
-import type { Level } from "./level";
-import type { LastTrade } from "./last-trade";
+import type { Level } from "@app/types/level";
+import type { LastTrade } from "@app/types/last-trade";
 
 export interface OrderBookProps {
   bids: Array<Level>;

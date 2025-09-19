@@ -10,7 +10,7 @@ export function isObject(value: unknown): value is Record<string, unknown> {
  */
 export function isL2BookMessage(
   msg: unknown
-): msg is import("../types/l2-book-message").L2BookMessage {
+): msg is import("@app/types/l2-book-message").L2BookMessage {
   if (!isObject(msg)) return false;
   if ((msg as Record<string, unknown>).channel !== "l2Book") return false;
   const data = (msg as Record<string, unknown>).data as unknown;
@@ -28,7 +28,7 @@ export function isL2BookMessage(
  */
 export function isTradesMessage(
   msg: unknown
-): msg is import("../types/trades-message").TradesMessage {
+): msg is import("@app/types/trades-message").TradesMessage {
   if (!isObject(msg)) return false;
   if ((msg as Record<string, unknown>).channel !== "trades") return false;
   const data = (msg as Record<string, unknown>).data as unknown;

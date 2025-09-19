@@ -1,4 +1,4 @@
-import type { Option } from "./option";
+import type { Option } from "@app/types/option";
 
 export interface DropdownProps<T extends string | number> {
   label?: string;

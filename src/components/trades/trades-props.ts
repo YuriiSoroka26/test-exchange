@@ -1,4 +1,4 @@
-import type { TradeItem } from "./trade-item";
+import type { TradeItem } from "@app/types/trade-item";
 
 export interface TradesProps {
   trades: Array<TradeItem>;

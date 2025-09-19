@@ -11,10 +11,10 @@ import type {
   OrderBookSnapshot,
   LastTrade,
   TabKey,
-} from "../../types";
-import { HyperliquidFeed } from "../../services/hyperliquid-feed";
-import { DEFAULT_SYMBOLS, DEFAULT_TICK_SIZE } from "../../constants";
-import { groupLevels } from "../../utils";
+} from "@app/types";
+import { HyperliquidFeed } from "@app/services/hyperliquid-feed";
+import { DEFAULT_SYMBOLS, DEFAULT_TICK_SIZE } from "@app/constants";
+import { groupLevels } from "@app/utils";
 
 export default function ExchangePage() {
   const [activeTab, setActiveTab] = useState<TabKey>("orderbook");
@@ -37,19 +37,18 @@ export default function ExchangePage() {
     const feed = new HyperliquidFeed(wsUrl);
     feed.connect(symbol);
     const offBook = feed.onOrderBook((snap: OrderBookSnapshot) => {
-      console.log("Order book data received:", snap);
       setBids(snap.bids.map(([p, s]) => ({ price: p, size: s })));
       setAsks(snap.asks.map(([p, s]) => ({ price: p, size: s })));
     });
-    const offTrades = feed.onTrades((ts) => {
-      const newTrades = ts.map((t) => ({
+    const offTrades = feed.onTrades(ts => {
+      const newTrades = ts.map(t => ({
         time: t.time,
         price: t.price,
         size: t.size,
         side: t.side,
       }));
 
-      setTrades((prev) => [...newTrades, ...prev].slice(0, 100));
+      setTrades(prev => [...newTrades, ...prev].slice(0, 100));
 
       // Update last trade with the most recent trade
       if (newTrades.length > 0) {

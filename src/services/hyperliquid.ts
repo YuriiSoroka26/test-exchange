@@ -1,8 +1,5 @@
-// Minimal HyperLiquid Info API client for user fills
-// Docs reference: POST https://api.hyperliquid.xyz/info with body { type: "userFills", user: string, aggregateByTime?: boolean }
-
-import type { HyperliquidFill, UserFillsResponse } from "../types";
-import { HYPERLIQUID_INFO_URL } from "../constants";
+import type { HyperliquidFill, UserFillsResponse } from "@app/types";
+import { HYPERLIQUID_INFO_URL } from "@app/constants";
 
 export async function fetchUserFills(
   walletAddress: string,
@@ -25,14 +22,12 @@ export async function fetchUserFills(
   }
   const data = await res.json();
 
-  // The API often returns an array directly or an object with fills; normalize to array
   if (Array.isArray(data)) {
     return data as HyperliquidFill[];
   }
   if (data && Array.isArray((data as UserFillsResponse).fills)) {
     return (data as UserFillsResponse).fills;
   }
-  // Fallback: try to detect nested structure
   if (data && data.data && Array.isArray(data.data)) {
     return data.data as HyperliquidFill[];
   }

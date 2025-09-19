@@ -1,4 +1,4 @@
-import type { TabKey } from "./tab-key";
+import type { TabKey } from "@app/types/tab-key";
 
 export interface HeaderBarProps {
   activeTab: TabKey;

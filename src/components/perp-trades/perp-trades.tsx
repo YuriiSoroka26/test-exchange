@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useRef, useState } from "react";
-import { fetchUserFills } from "../../services/hyperliquid";
-import { reconstructCompletedPerpTrades } from "../../services/reconstruct";
-import type { CompletedPerpTrade } from "../../types";
-import { formatUsd, formatTime, formatDuration } from "../../utils";
+import { fetchUserFills } from "@app/services/hyperliquid";
+import { reconstructCompletedPerpTrades } from "@app/services/reconstruct";
+import type { CompletedPerpTrade } from "@app/types";
+import { formatUsd, formatTime, formatDuration } from "@app/utils";
 import styles from "./perp-trades.module.css";
 
 export default function PerpTrades() {
@@ -32,8 +32,10 @@ export default function PerpTrades() {
         // Sort newest first by close time
         completed.sort((a, b) => b.closeTime - a.closeTime);
         setTrades(completed);
-      } catch (err: any) {
-        setError(err?.message || "Failed to fetch user fills");
+      } catch (err: unknown) {
+        setError(
+          err instanceof Error ? err.message : "Failed to fetch user fills"
+        );
       } finally {
         setLoading(false);
       }
@@ -53,7 +55,7 @@ export default function PerpTrades() {
             className={styles.input}
             placeholder="Enter wallet address (0x...)"
             value={address}
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={e => setAddress(e.target.value)}
           />
           <button
             type="submit"

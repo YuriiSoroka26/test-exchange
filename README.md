@@ -1,69 +1,174 @@
-# React + TypeScript + Vite
+# Test Exchange
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React-based cryptocurrency exchange interface built with TypeScript, Vite, and real-time WebSocket connections to Hyperliquid.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Real-time Order Book**: Live order book data with customizable grouping
+- **Trade History**: Real-time trade feed with buy/sell indicators
+- **Perpetual Trades**: View completed perpetual trading history
+- **Responsive Design**: Modern UI with CSS variables and dark/light mode support
+- **TypeScript**: Full type safety throughout the application
+- **Code Quality**: ESLint + Prettier for consistent code formatting
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend**: React 19, TypeScript, Vite
+- **Styling**: CSS Modules with CSS Variables
+- **State Management**: React Hooks
+- **Routing**: React Router DOM
+- **Icons**: React Icons
+- **Code Quality**: ESLint, Prettier
+- **API**: Hyperliquid WebSocket API
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prerequisites
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js (v20.19.0 or higher recommended)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone <repository-url>
+   cd test-exchange
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Edit `.env` file with your configuration:
+
+   ```env
+   # Hyperliquid API Configuration
+   VITE_HYPERLIQUID_INFO_URL=https://api.hyperliquid.xyz/info
+   VITE_HYPERLIQUID_WS_URL=wss://api.hyperliquid.xyz/ws
+
+   # WebSocket Configuration
+   VITE_WS_RETRY_DELAY=1000
+
+   # Display Configuration
+   VITE_MAX_ORDER_BOOK_LEVELS=50
+   VITE_MAX_TRADES_DISPLAY=24
+
+   # Trading Configuration
+   VITE_DEFAULT_SYMBOLS=BTC,ETH,SOL,AVAX,MATIC
+   VITE_DEFAULT_SYMBOL=BTC
+   VITE_DEFAULT_TICK_SIZE=0.01
+   ```
+
+### Development
+
+4. **Start the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Open your browser**
+   Navigate to `http://localhost:5173` to view the application.
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Run ESLint with auto-fix
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check code formatting
+
+## Project Structure
+
+```
+src/
+├── components/          # React components
+│   ├── dropdown/       # Dropdown component
+│   ├── exchange-page/  # Main exchange interface
+│   ├── header-bar/     # Top navigation bar
+│   ├── layout/         # Layout wrapper
+│   ├── navigation/     # Main navigation
+│   ├── order-book/     # Order book display
+│   ├── perp-trades/    # Perpetual trades page
+│   ├── tab-menu/       # Tab navigation
+│   └── trades/         # Trades display
+├── constants/          # Application constants
+├── services/           # API services
+├── styles/             # Global styles and CSS variables
+├── types/              # TypeScript type definitions
+└── utils/              # Utility functions
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Environment Variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Variable                     | Description                               | Default                            |
+| ---------------------------- | ----------------------------------------- | ---------------------------------- |
+| `VITE_HYPERLIQUID_INFO_URL`  | Hyperliquid REST API URL                  | `https://api.hyperliquid.xyz/info` |
+| `VITE_HYPERLIQUID_WS_URL`    | Hyperliquid WebSocket URL                 | `wss://api.hyperliquid.xyz/ws`     |
+| `VITE_WS_RETRY_DELAY`        | WebSocket retry delay (ms)                | `1000`                             |
+| `VITE_MAX_ORDER_BOOK_LEVELS` | Max order book levels to display          | `50`                               |
+| `VITE_MAX_TRADES_DISPLAY`    | Max trades to display                     | `24`                               |
+| `VITE_DEFAULT_SYMBOLS`       | Default trading symbols (comma-separated) | `BTC,ETH,SOL,AVAX,MATIC`           |
+| `VITE_DEFAULT_SYMBOL`        | Default selected symbol                   | `BTC`                              |
+| `VITE_DEFAULT_TICK_SIZE`     | Default tick size for grouping            | `0.01`                             |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Features Overview
+
+### Exchange Page
+
+- Real-time order book with bid/ask levels
+- Live trade feed
+- Symbol selection dropdown
+- Tick size grouping controls
+- Tab navigation between order book and trades
+
+### Perpetual Trades Page
+
+- View completed perpetual trading history
+- Enter wallet address to fetch user fills
+- Display trade direction, duration, and PnL
+- Sortable by close time
+
+## Development
+
+### Code Style
+
+This project uses ESLint and Prettier for code quality and formatting:
+
+- **ESLint**: Catches potential bugs and enforces code quality
+- **Prettier**: Ensures consistent code formatting
+- **TypeScript**: Provides type safety and better developer experience
+
+### Path Aliases
+
+The project uses `@app/` as an alias for the `src/` directory to avoid relative imports:
+
+```typescript
+// Instead of: import { formatNumber } from "../../utils";
+import { formatNumber } from "@app/utils";
+```
+
+### CSS Variables
+
+Global CSS variables are defined in `src/styles/variables.css` for consistent theming:
+
+```css
+:root {
+  --color-primary: #646cff;
+  --color-buy: #1fa67d;
+  --color-sell: #ed7088;
+  /* ... more variables */
+}
 ```

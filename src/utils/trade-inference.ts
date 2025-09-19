@@ -1,4 +1,4 @@
-import type { HyperliquidFill } from "../types/hyperliquid-fill";
+import type { HyperliquidFill } from "@app/types/hyperliquid-fill";
 
 /**
  * Infers whether a fill is a buy or sell based on available data

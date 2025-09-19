@@ -1,4 +1,4 @@
-import type { Level } from "../types";
+import type { Level } from "@app/types";
 
 /**
  * Groups order book levels by tick size (similar to Binance-style grouping)

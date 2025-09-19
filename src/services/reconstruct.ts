@@ -1,5 +1,5 @@
-import type { HyperliquidFill, CompletedPerpTrade } from "../types";
-import { inferIsBuy } from "../utils";
+import type { HyperliquidFill, CompletedPerpTrade } from "@app/types";
+import { inferIsBuy } from "@app/utils";
 
 /**
  * Reconstruct completed perp trades (position episodes) from fills.
@@ -10,9 +10,8 @@ export function reconstructCompletedPerpTrades(
   fills: HyperliquidFill[]
 ): CompletedPerpTrade[] {
   // Normalize and filter perp fills only
-  const perpFills = fills.filter((f) => f.perp !== false);
+  const perpFills = fills.filter(f => f.perp !== false);
 
-  // Ensure we have time ordering ascending
   perpFills.sort((a, b) => a.time - b.time);
 
   const completed: CompletedPerpTrade[] = [];

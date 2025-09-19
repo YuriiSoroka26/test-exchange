@@ -1,39 +1,91 @@
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 0;
+  width: 100%;
+  border-bottom: 1px solid #333333;
 }
 
 .tabs {
-  display: inline-flex;
-  background: #101216;
-  border: 1px solid #1f232b;
-  border-radius: 8px;
-  overflow: hidden;
+  display: flex;
+  background: transparent;
+  flex: 1;
+  height: 40px;
 }
 
 .tab {
-  padding: 8px 12px;
-  color: #8b93a7;
+  flex: 1;
+  height: 40px;
+  color: #aaaaaa;
   background: transparent;
   border: none;
   cursor: pointer;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 12px 30px;
 }
 
 .tabActive {
-  padding: 8px 12px;
-  color: #e6e9ef;
-  background: #1a1f28;
+  flex: 1;
+  height: 40px;
+  color: white;
+  background: transparent;
   border: none;
   cursor: pointer;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 12px 30px;
+}
+
+.tabActive::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 3px;
+  background-color: white;
 }
 
 .action {
-  padding: 8px 14px;
-  background: #2f80ed;
-  color: white;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  color: #aaaaaa;
   border: none;
-  border-radius: 8px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  padding: 0;
+}
+
+.action:hover {
+  color: white;
+}
+
+.orderBookTab {
+  padding: 12px 28px !important;
 }

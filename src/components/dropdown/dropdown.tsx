@@ -8,8 +8,7 @@ export default function Dropdown<T extends string | number>({
   onChange,
 }: DropdownProps<T>) {
   return (
-    <label className={styles.container}>
-      {label && <span className={styles.label}>{label}</span>}
+    <div className={styles.container}>
       <select
         className={styles.select}
         value={String(value)}
@@ -21,6 +20,6 @@ export default function Dropdown<T extends string | number>({
           </option>
         ))}
       </select>
-    </label>
+    </div>
   );
 }

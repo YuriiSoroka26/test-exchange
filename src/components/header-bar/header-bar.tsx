@@ -13,7 +13,7 @@ export default function HeaderBar({
   symbols,
   onSymbolChange,
 }: HeaderBarProps) {
-  const tickOptions = [0.001, 0.01, 0.1, 1].map((v) => ({
+  const tickOptions = [0.001, 0.01, 0.1, 0.5, 1, 5, 10, 50, 100].map((v) => ({
     label: v.toString(),
     value: v,
   }));

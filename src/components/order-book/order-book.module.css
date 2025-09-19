@@ -1,25 +1,53 @@
 .container {
   width: 100%;
-  background: #0b0d12;
-  border: 1px solid #1f232b;
-  border-radius: 12px;
+  height: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 8px;
-  padding: 8px 12px;
-  color: #8b93a7;
+  padding: 0 10px;
+  color: #aaaaaa;
+  font-family: Inter;
+  font-weight: 400;
+  font-style: normal;
   font-size: 12px;
-  border-bottom: 1px solid #1f232b;
+  line-height: 16px;
+  letter-spacing: 0%;
 }
 
-.asks,
+.header span:nth-child(1) {
+  text-align: left;
+}
+
+.header span:nth-child(2) {
+  text-align: right;
+}
+
+.header span:nth-child(3) {
+  text-align: right;
+}
+
+.asks {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 264px; /* 11 levels * 24px height */
+  justify-content: flex-end;
+}
+
 .bids {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 264px; /* 11 levels * 24px height */
+  justify-content: flex-start;
 }
 
 .rowAsk,
@@ -28,9 +56,17 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 8px;
-  padding: 6px 12px;
+  padding: 0 10px;
+  height: 24px;
+  font-family: Inter;
+  font-weight: 400;
+  font-style: normal;
   font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0%;
+  font-variant-numeric: lining-nums tabular-nums;
   overflow: hidden;
+  align-items: center;
 }
 
 .backgroundBarAsk {
@@ -38,11 +74,7 @@
   top: 0;
   right: 0;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 107, 107, 0.15),
-    rgba(255, 107, 107, 0.05)
-  );
+  background: #ed70881a;
   pointer-events: none;
   z-index: 1;
 }
@@ -52,41 +84,55 @@
   top: 0;
   right: 0;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(39, 174, 96, 0.15),
-    rgba(39, 174, 96, 0.05)
-  );
+  background: #1fa67d1a;
   pointer-events: none;
   z-index: 1;
 }
 
 .priceAsk {
-  color: #ff6b6b;
+  color: #ed7088;
   position: relative;
   z-index: 2;
+  text-align: left;
 }
 .priceBid {
-  color: #27ae60;
+  color: #1fa67d;
   position: relative;
   z-index: 2;
+  text-align: left;
 }
 .size {
   color: #cbd3e1;
   position: relative;
   z-index: 2;
+  text-align: right;
 }
 .total {
   color: #8b93a7;
   position: relative;
   z-index: 2;
+  text-align: right;
 }
 
 .mid {
-  text-align: center;
-  padding: 6px 12px;
-  color: #8b93a7;
-  font-size: 12px;
-  border-top: 1px dashed #1f232b;
-  border-bottom: 1px dashed #1f232b;
+  padding: 0 10px;
+  height: 36px;
+  font-family: Inter;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0%;
+  font-variant-numeric: lining-nums tabular-nums;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.lastTradeSell {
+  color: #ed7088;
+}
+
+.lastTradeBuy {
+  color: #1fa67d;
 }

@@ -1,9 +1,9 @@
 .container {
   width: 100%;
-  background: #0b0d12;
-  border: 1px solid #1f232b;
-  border-radius: 12px;
+  height: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -19,6 +19,8 @@
 .body {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .row {

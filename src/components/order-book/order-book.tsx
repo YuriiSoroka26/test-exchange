@@ -9,8 +9,14 @@ function formatNumber(n: number, decimals: number) {
   });
 }
 
-export default function OrderBook({ bids, asks, tickSize }: OrderBookProps) {
-  console.log("OrderBook props:", { bids, asks, tickSize });
+export default function OrderBook({
+  bids,
+  asks,
+  tickSize,
+  symbol = "BTC",
+  lastTrade,
+}: OrderBookProps) {
+  console.log("OrderBook props:", { bids, asks, tickSize, symbol });
 
   const decimals = useMemo(() => {
     const s = tickSize.toString();
@@ -20,7 +26,6 @@ export default function OrderBook({ bids, asks, tickSize }: OrderBookProps) {
 
   const maxBid = bids.length ? bids[0].price : 0;
   const minAsk = asks.length ? asks[0].price : 0;
-  const mid = maxBid && minAsk ? (maxBid + minAsk) / 2 : 0;
 
   // Calculate cumulative totals for background bars
   const { bidsWithTotals, asksWithTotals, maxTotal } = useMemo(() => {
@@ -47,9 +52,9 @@ export default function OrderBook({ bids, asks, tickSize }: OrderBookProps) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <span>Price</span>
-        <span>Size</span>
-        <span>Total</span>
+        <span>Price (USD)</span>
+        <span>Size ({symbol})</span>
+        <span>Total ({symbol})</span>
       </div>
       <div className={styles.asks}>
         {asksWithTotals.map((l, i) => {
@@ -69,8 +74,14 @@ export default function OrderBook({ bids, asks, tickSize }: OrderBookProps) {
           );
         })}
       </div>
-      <div className={styles.mid}>
-        Mid: {mid ? formatNumber(mid, decimals) : "—"}
+      <div
+        className={`${styles.mid} ${
+          lastTrade?.side === "sell"
+            ? styles.lastTradeSell
+            : styles.lastTradeBuy
+        }`}
+      >
+        {lastTrade ? formatNumber(lastTrade.price, decimals) : "—"}
       </div>
       <div className={styles.bids}>
         {bidsWithTotals.map((l, i) => {

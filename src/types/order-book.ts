@@ -3,8 +3,15 @@ export interface Level {
   size: number;
 }
 
+export interface LastTrade {
+  price: number;
+  side: "buy" | "sell";
+}
+
 export interface OrderBookProps {
   bids: Array<Level>;
   asks: Array<Level>;
   tickSize: number;
+  symbol?: string;
+  lastTrade?: LastTrade;
 }

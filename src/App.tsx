@@ -6,6 +6,7 @@ import Trades from "./components/trades";
 import type { TradeItem } from "./types/trades";
 import type { Level } from "./types/order-book";
 import type { OrderBookSnapshot } from "./types/hyperliquid";
+import type { LastTrade } from "./types/order-book";
 import { HyperliquidFeed } from "./services/hyperliquid-feed";
 import "./App.css";
 
@@ -13,12 +14,13 @@ type TabKey = "orderbook" | "trades";
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabKey>("orderbook");
-  const [tickSize, setTickSize] = useState<number>(0.01);
+  const [tickSize, setTickSize] = useState<number>(0.1);
   const [symbol, setSymbol] = useState<string>("BTC");
   const [symbols] = useState<string[]>(["BTC", "ETH", "SOL"]);
   const [bids, setBids] = useState<Level[]>([]);
   const [asks, setAsks] = useState<Level[]>([]);
   const [trades, setTrades] = useState<TradeItem[]>([]);
+  const [lastTrade, setLastTrade] = useState<LastTrade | undefined>();
 
   // Add some mock data for testing order book display
   useEffect(() => {
@@ -70,17 +72,23 @@ function App() {
       setAsks(snap.asks.map(([p, s]) => ({ price: p, size: s })));
     });
     const offTrades = feed.onTrades((ts) => {
-      setTrades((prev) =>
-        [
-          ...ts.map((t) => ({
-            time: t.time,
-            price: t.price,
-            size: t.size,
-            side: t.side,
-          })),
-          ...prev,
-        ].slice(0, 100)
-      );
+      const newTrades = ts.map((t) => ({
+        time: t.time,
+        price: t.price,
+        size: t.size,
+        side: t.side,
+      }));
+
+      setTrades((prev) => [...newTrades, ...prev].slice(0, 100));
+
+      // Update last trade with the most recent trade
+      if (newTrades.length > 0) {
+        const mostRecentTrade = newTrades[0];
+        setLastTrade({
+          price: mostRecentTrade.price,
+          side: mostRecentTrade.side,
+        });
+      }
     });
     return () => {
       offBook();
@@ -114,9 +122,15 @@ function App() {
       }
     >
       {activeTab === "orderbook" ? (
-        <OrderBook bids={groupedBids} asks={groupedAsks} tickSize={tickSize} />
+        <OrderBook
+          bids={groupedBids}
+          asks={groupedAsks}
+          tickSize={tickSize}
+          symbol={symbol}
+          lastTrade={lastTrade}
+        />
       ) : (
-        <Trades trades={trades} />
+        <Trades trades={trades} symbol={symbol} />
       )}
     </Layout>
   );
@@ -127,23 +141,29 @@ function groupLevels(
   tickSize: number,
   direction: "up" | "down"
 ): Level[] {
+  if (levels.length === 0) return [];
+
   const buckets = new Map<number, number>();
+
   for (const { price, size } of levels) {
-    const grouped =
-      direction === "up"
-        ? Math.ceil(price / tickSize) * tickSize
-        : Math.floor(price / tickSize) * tickSize;
+    // Binance-style grouping: round to the nearest tick
+    const grouped = Math.round(price / tickSize) * tickSize;
     const key = Number(grouped.toFixed(10));
     buckets.set(key, (buckets.get(key) || 0) + size);
   }
+
   const res = Array.from(buckets.entries()).map(([price, total]) => ({
     price,
     size: total,
   }));
+
+  // Sort based on direction
   res.sort((a, b) =>
     direction === "up" ? a.price - b.price : b.price - a.price
   );
-  return res;
+
+  // Return top 11 levels for display
+  return res.slice(0, 11);
 }
 
 export default App;

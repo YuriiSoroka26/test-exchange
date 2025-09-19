@@ -1,4 +1,5 @@
 import type { TabMenuProps } from "../../types/tab-menu";
+import { HiDotsVertical } from "react-icons/hi";
 import styles from "./tab-menu.module.css";
 
 export default function TabMenu({
@@ -11,7 +12,9 @@ export default function TabMenu({
     <div className={styles.container}>
       <div className={styles.tabs}>
         <button
-          className={activeTab === "orderbook" ? styles.tabActive : styles.tab}
+          className={`${
+            activeTab === "orderbook" ? styles.tabActive : styles.tab
+          } ${styles.orderBookTab}`}
           onClick={() => onChange("orderbook")}
         >
           Order Book
@@ -24,7 +27,7 @@ export default function TabMenu({
         </button>
       </div>
       <button className={styles.action} onClick={onActionClick}>
-        {actionLabel}
+        <HiDotsVertical size={12} />
       </button>
     </div>
   );

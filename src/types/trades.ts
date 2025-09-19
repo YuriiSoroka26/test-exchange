@@ -7,4 +7,5 @@ export interface TradeItem {
 
 export interface TradesProps {
   trades: Array<TradeItem>;
+  symbol?: string;
 }

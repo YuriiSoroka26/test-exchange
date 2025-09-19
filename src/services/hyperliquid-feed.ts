@@ -74,11 +74,12 @@ export class HyperliquidFeed {
 
         if (isL2BookMessage(parsed)) {
           const [rawBids, rawAsks] = parsed.data.levels;
+          // Get more levels for better grouping (like Binance)
           const bids: Array<[number, number]> = rawBids
-            .slice(0, 11)
+            .slice(0, 50)
             .map((l) => [Number(l.px), Number(l.sz)]);
           const asks: Array<[number, number]> = rawAsks
-            .slice(0, 11)
+            .slice(0, 50)
             .map((l) => [Number(l.px), Number(l.sz)]);
           const snapshot: OrderBookSnapshot = { bids, asks };
           this.orderBookListeners.forEach((cb) => cb(snapshot));

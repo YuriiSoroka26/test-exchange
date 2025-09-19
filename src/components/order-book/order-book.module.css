@@ -9,14 +9,14 @@
 .header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
-  padding: 0 10px;
-  color: #aaaaaa;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 400;
+  gap: var(--spacing-lg);
+  padding: 0 var(--spacing-sm);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-normal);
   font-style: normal;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-sm);
   letter-spacing: 0%;
 }
 
@@ -37,7 +37,7 @@
   flex-direction: column;
   flex: 1;
   overflow-y: auto;
-  min-height: 264px; /* 11 levels * 24px height */
+  min-height: var(--order-book-min-height);
   justify-content: flex-end;
 }
 
@@ -46,7 +46,7 @@
   flex-direction: column;
   flex: 1;
   overflow-y: auto;
-  min-height: 264px; /* 11 levels * 24px height */
+  min-height: var(--order-book-min-height);
   justify-content: flex-start;
 }
 
@@ -55,14 +55,14 @@
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
-  padding: 0 10px;
-  height: 24px;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 400;
+  gap: var(--spacing-lg);
+  padding: 0 var(--spacing-sm);
+  height: var(--order-book-row-height);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-normal);
   font-style: normal;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-sm);
   letter-spacing: 0%;
   font-variant-numeric: lining-nums tabular-nums;
   overflow: hidden;
@@ -74,9 +74,9 @@
   top: 0;
   right: 0;
   height: 100%;
-  background: #ed70881a;
+  background: var(--color-sell-bg);
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-index-background);
 }
 
 .backgroundBarBid {
@@ -84,44 +84,44 @@
   top: 0;
   right: 0;
   height: 100%;
-  background: #1fa67d1a;
+  background: var(--color-buy-bg);
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-index-background);
 }
 
 .priceAsk {
-  color: #ed7088;
+  color: var(--color-sell);
   position: relative;
-  z-index: 2;
+  z-index: var(--z-index-content);
   text-align: left;
 }
 .priceBid {
-  color: #1fa67d;
+  color: var(--color-buy);
   position: relative;
-  z-index: 2;
+  z-index: var(--z-index-content);
   text-align: left;
 }
 .size {
-  color: #ffffff;
+  color: var(--color-text-white);
   position: relative;
-  z-index: 2;
+  z-index: var(--z-index-content);
   text-align: right;
 }
 .total {
-  color: #ffffff;
+  color: var(--color-text-white);
   position: relative;
-  z-index: 2;
+  z-index: var(--z-index-content);
   text-align: right;
 }
 
 .mid {
-  padding: 0 10px;
-  height: 36px;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 400;
+  padding: 0 var(--spacing-sm);
+  height: var(--order-book-mid-height);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-normal);
   font-style: normal;
-  font-size: 18px;
-  line-height: 28px;
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-md);
   letter-spacing: 0%;
   font-variant-numeric: lining-nums tabular-nums;
   text-align: left;
@@ -130,19 +130,24 @@
 }
 
 .lastTradeSell {
-  color: #ed7088;
+  color: var(--color-sell);
 }
 
 .lastTradeBuy {
-  color: #1fa67d;
+  color: var(--color-buy);
 }
 
 .skeletonText {
-  height: 12px;
-  background: linear-gradient(90deg, #2a2d35 25%, #3a3d45 50%, #2a2d35 75%);
+  height: var(--font-size-xs);
+  background: linear-gradient(
+    90deg,
+    var(--color-skeleton-base) 25%,
+    var(--color-skeleton-highlight) 50%,
+    var(--color-skeleton-base) 75%
+  );
   background-size: 200% 100%;
-  animation: skeleton-loading 1.5s infinite;
-  border-radius: 2px;
+  animation: skeleton-loading var(--transition-normal) infinite;
+  border-radius: var(--border-radius-sm);
 }
 
 @keyframes skeleton-loading {

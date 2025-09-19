@@ -1,13 +1,5 @@
-import type { HyperliquidFill } from "./hyperliquid";
-
-export type CompletedPerpTrade = {
-  coin: string;
-  direction: "long" | "short";
-  openTime: number; // ms epoch
-  closeTime: number; // ms epoch
-  durationMs: number;
-  realizedPnlUsd: number; // USD
-};
+import type { HyperliquidFill, CompletedPerpTrade } from "../types";
+import { inferIsBuy } from "../utils";
 
 /**
  * Reconstruct completed perp trades (position episodes) from fills.
@@ -18,7 +10,7 @@ export function reconstructCompletedPerpTrades(
   fills: HyperliquidFill[]
 ): CompletedPerpTrade[] {
   // Normalize and filter perp fills only
-  const perpFills = fills.filter((f) => (f as any).perp !== false);
+  const perpFills = fills.filter((f) => f.perp !== false);
 
   // Ensure we have time ordering ascending
   perpFills.sort((a, b) => a.time - b.time);
@@ -103,30 +95,4 @@ export function reconstructCompletedPerpTrades(
   }
 
   return completed;
-}
-
-function inferIsBuy(f: HyperliquidFill): boolean {
-  if (typeof f.sz === "number" && f.sz !== 0) {
-    // Commonly, positive sz indicates buy, negative indicates sell
-    return f.sz > 0;
-  }
-  if (f.side === "B") return true;
-  if (f.side === "S") return false;
-  if (f.dir) {
-    const d = f.dir.toLowerCase();
-    if (
-      d.includes("buy") ||
-      d.includes("open long") ||
-      d.includes("close short")
-    )
-      return true;
-    if (
-      d.includes("sell") ||
-      d.includes("open short") ||
-      d.includes("close long")
-    )
-      return false;
-  }
-  // Fallback: treat non-negative as buy
-  return true;
 }

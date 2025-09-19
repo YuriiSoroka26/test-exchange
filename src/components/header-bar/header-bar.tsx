@@ -1,6 +1,11 @@
 import TabMenu from "../tab-menu";
 import Dropdown from "../dropdown";
-import type { HeaderBarProps } from "../../types/header-bar";
+import type { HeaderBarProps } from "../../types";
+import {
+  TICK_SIZE_OPTIONS,
+  ACTION_LABELS,
+  DROPDOWN_LABELS,
+} from "../../constants";
 import styles from "./header-bar.module.css";
 
 export default function HeaderBar({
@@ -13,7 +18,7 @@ export default function HeaderBar({
   symbols,
   onSymbolChange,
 }: HeaderBarProps) {
-  const tickOptions = [0.001, 0.01, 0.1, 0.5, 1, 5, 10, 50, 100].map((v) => ({
+  const tickOptions = TICK_SIZE_OPTIONS.map((v) => ({
     label: v.toString(),
     value: v,
   }));
@@ -25,17 +30,17 @@ export default function HeaderBar({
         activeTab={activeTab}
         onChange={onTabChange}
         onActionClick={onAction}
-        actionLabel="Action"
+        actionLabel={ACTION_LABELS.action}
       />
       <div className={styles.controls}>
         <Dropdown<number>
-          label="Group"
+          label={DROPDOWN_LABELS.group}
           options={tickOptions}
           value={tickSize}
           onChange={onTickSizeChange}
         />
         <Dropdown<string>
-          label="Coin"
+          label={DROPDOWN_LABELS.coin}
           options={symbolOptions}
           value={symbol}
           onChange={onSymbolChange}

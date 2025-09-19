@@ -4,8 +4,3 @@ export interface TradeItem {
   size: number;
   side: "buy" | "sell";
 }
-
-export interface TradesProps {
-  trades: Array<TradeItem>;
-  symbol?: string;
-}

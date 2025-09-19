@@ -1,11 +1,13 @@
+@import "./styles/variables.css";
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  font-family: var(--font-family);
+  line-height: var(--line-height-normal);
+  font-weight: var(--font-weight-normal);
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,53 +16,53 @@
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--color-primary-hover);
 }
 
 body {
   margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
+  min-width: var(--min-width);
+  min-height: var(--min-height);
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-tight);
 }
 
 button {
-  border-radius: 8px;
+  border-radius: var(--border-radius-md);
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
-  font-weight: 500;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  background-color: #1a1a1a;
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family);
+  background-color: var(--color-bg-secondary);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color var(--transition-fast);
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--color-primary);
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: var(--z-index-focus) auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--color-text-light);
+    background-color: var(--color-bg-light);
   }
   a:hover {
-    color: #747bff;
+    color: var(--color-primary-light);
   }
   button {
-    background-color: #f9f9f9;
+    background-color: var(--color-bg-light-secondary);
   }
 }

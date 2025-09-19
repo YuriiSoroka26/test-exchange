@@ -3,36 +3,8 @@ import type {
   OrderBookSnapshot,
   TradeEvent,
   Listener,
-  // L2LevelRaw, // Currently unused but kept for future use
-  // L2BookData, // Currently unused but kept for future use
-  L2BookMessage,
-  // TradeRaw, // Currently unused but kept for future use
-  TradesMessage,
-} from "../types/hyperliquid";
-
-function isObject(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null;
-}
-
-function isL2BookMessage(msg: unknown): msg is L2BookMessage {
-  if (!isObject(msg)) return false;
-  if ((msg as Record<string, unknown>).channel !== "l2Book") return false;
-  const data = (msg as Record<string, unknown>).data as unknown;
-  if (!isObject(data)) return false;
-  const levels = (data as Record<string, unknown>).levels as unknown;
-  return (
-    Array.isArray(levels) &&
-    Array.isArray((levels as unknown[])[0]) &&
-    Array.isArray((levels as unknown[])[1])
-  );
-}
-
-function isTradesMessage(msg: unknown): msg is TradesMessage {
-  if (!isObject(msg)) return false;
-  if ((msg as Record<string, unknown>).channel !== "trades") return false;
-  const data = (msg as Record<string, unknown>).data as unknown;
-  return Array.isArray(data);
-}
+} from "../types";
+import { isL2BookMessage, isTradesMessage } from "../utils";
 
 export class HyperliquidFeed {
   private ws?: WebSocket;

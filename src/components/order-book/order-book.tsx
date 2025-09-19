@@ -1,13 +1,12 @@
 import { useMemo } from "react";
-import type { OrderBookProps } from "../../types/order-book";
+import type { OrderBookProps } from "../../types";
+import {
+  formatNumber,
+  calculateDecimals,
+  calculateOrderBookTotals,
+} from "../../utils";
+import { ORDER_BOOK_HEADERS } from "../../constants";
 import styles from "./order-book.module.css";
-
-function formatNumber(n: number, decimals: number) {
-  return n.toLocaleString(undefined, {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  });
-}
 
 export default function OrderBook({
   bids,
@@ -18,43 +17,27 @@ export default function OrderBook({
 }: OrderBookProps) {
   console.log("OrderBook props:", { bids, asks, tickSize, symbol });
 
-  const decimals = useMemo(() => {
-    const s = tickSize.toString();
-    const idx = s.indexOf(".");
-    return idx === -1 ? 0 : s.length - idx - 1;
-  }, [tickSize]);
+  const decimals = useMemo(() => calculateDecimals(tickSize), [tickSize]);
 
   // const maxBid = bids.length ? bids[0].price : 0; // Currently unused but kept for future use
   // const minAsk = asks.length ? asks[0].price : 0; // Currently unused but kept for future use
 
   // Calculate cumulative totals for background bars
-  const { bidsWithTotals, asksWithTotals, maxTotal } = useMemo(() => {
-    let cumulativeBid = 0;
-    const bidsWithTotals = bids.map((bid) => {
-      cumulativeBid += bid.size;
-      return { ...bid, total: cumulativeBid };
-    });
-
-    let cumulativeAsk = 0;
-    const asksWithTotals = asks.map((ask) => {
-      cumulativeAsk += ask.size;
-      return { ...ask, total: cumulativeAsk };
-    });
-
-    const maxTotal = Math.max(
-      bidsWithTotals[bidsWithTotals.length - 1]?.total || 0,
-      asksWithTotals[asksWithTotals.length - 1]?.total || 0
-    );
-
-    return { bidsWithTotals, asksWithTotals, maxTotal };
-  }, [bids, asks]);
+  const { bidsWithTotals, asksWithTotals, maxTotal } = useMemo(
+    () => calculateOrderBookTotals(bids, asks),
+    [bids, asks]
+  );
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <span>Price (USD)</span>
-        <span>Size ({symbol})</span>
-        <span>Total ({symbol})</span>
+        <span>{ORDER_BOOK_HEADERS.price}</span>
+        <span>
+          {ORDER_BOOK_HEADERS.size} ({symbol})
+        </span>
+        <span>
+          {ORDER_BOOK_HEADERS.total} ({symbol})
+        </span>
       </div>
       <div className={styles.asks}>
         {asksWithTotals.map((l, i) => {

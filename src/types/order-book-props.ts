@@ -1,12 +1,5 @@
-export interface Level {
-  price: number;
-  size: number;
-}
-
-export interface LastTrade {
-  price: number;
-  side: "buy" | "sell";
-}
+import type { Level } from "./level";
+import type { LastTrade } from "./last-trade";
 
 export interface OrderBookProps {
   bids: Array<Level>;

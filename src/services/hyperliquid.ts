@@ -1,23 +1,8 @@
 // Minimal HyperLiquid Info API client for user fills
 // Docs reference: POST https://api.hyperliquid.xyz/info with body { type: "userFills", user: string, aggregateByTime?: boolean }
 
-export type HyperliquidFill = {
-  time: number; // ms epoch
-  coin: string; // e.g., "ETH", "BTC"
-  px: number; // price
-  sz: number; // size in coin units (positive for buy, negative for sell?)
-  dir?: string; // direction label if provided by API
-  side?: "B" | "S"; // sometimes side is present
-  perp?: boolean; // true for perp trades
-  closedPnl?: number; // realized PnL in USD on this fill (if available)
-  fee?: number; // fee in USD
-};
-
-export type UserFillsResponse = {
-  fills: HyperliquidFill[];
-};
-
-const INFO_URL = "https://api.hyperliquid.xyz/info";
+import type { HyperliquidFill, UserFillsResponse } from "../types";
+import { HYPERLIQUID_INFO_URL } from "../constants";
 
 export async function fetchUserFills(
   walletAddress: string,
@@ -29,7 +14,7 @@ export async function fetchUserFills(
     aggregateByTime: true,
   } as const;
 
-  const res = await fetch(INFO_URL, {
+  const res = await fetch(HYPERLIQUID_INFO_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),

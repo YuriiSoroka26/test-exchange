@@ -1,35 +1,9 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import { fetchUserFills } from "../../services/hyperliquid";
-import {
-  reconstructCompletedPerpTrades,
-  type CompletedPerpTrade,
-} from "../../services/reconstruct";
+import { reconstructCompletedPerpTrades } from "../../services/reconstruct";
+import type { CompletedPerpTrade } from "../../types";
+import { formatUsd, formatTime, formatDuration } from "../../utils";
 import styles from "./perp-trades.module.css";
-
-function formatUsd(n: number): string {
-  const sign = n < 0 ? "-" : "";
-  const v = Math.abs(n);
-  const str =
-    v >= 1000
-      ? v.toLocaleString(undefined, { maximumFractionDigits: 2 })
-      : v.toFixed(2);
-  return `${sign}$${str}`;
-}
-
-function formatTime(ms: number): string {
-  const d = new Date(ms);
-  return d.toLocaleString();
-}
-
-function formatDuration(ms: number): string {
-  const sec = Math.floor(ms / 1000);
-  const h = Math.floor(sec / 3600);
-  const m = Math.floor((sec % 3600) / 60);
-  const s = sec % 60;
-  if (h > 0) return `${h}h ${m}m ${s}s`;
-  if (m > 0) return `${m}m ${s}s`;
-  return `${s}s`;
-}
 
 export default function PerpTrades() {
   const [address, setAddress] = useState("");

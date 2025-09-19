@@ -5,19 +5,22 @@ import OrderBook from "../order-book";
 import OrderBookSkeleton from "../order-book/order-book-skeleton";
 import Trades from "../trades";
 import TradesSkeleton from "../trades/trades-skeleton";
-import type { TradeItem } from "../../types/trades";
-import type { Level } from "../../types/order-book";
-import type { OrderBookSnapshot } from "../../types/hyperliquid";
-import type { LastTrade } from "../../types/order-book";
+import type {
+  TradeItem,
+  Level,
+  OrderBookSnapshot,
+  LastTrade,
+  TabKey,
+} from "../../types";
 import { HyperliquidFeed } from "../../services/hyperliquid-feed";
-
-type TabKey = "orderbook" | "trades";
+import { DEFAULT_SYMBOLS, DEFAULT_TICK_SIZE } from "../../constants";
+import { groupLevels } from "../../utils";
 
 export default function ExchangePage() {
   const [activeTab, setActiveTab] = useState<TabKey>("orderbook");
-  const [tickSize, setTickSize] = useState<number>(0.1);
+  const [tickSize, setTickSize] = useState<number>(DEFAULT_TICK_SIZE);
   const [symbol, setSymbol] = useState<string>("BTC");
-  const [symbols] = useState<string[]>(["BTC", "ETH", "SOL"]);
+  const [symbols] = useState<string[]>(DEFAULT_SYMBOLS);
   const [bids, setBids] = useState<Level[]>([]);
   const [asks, setAsks] = useState<Level[]>([]);
   const [trades, setTrades] = useState<TradeItem[]>([]);
@@ -117,34 +120,4 @@ export default function ExchangePage() {
       </Layout>
     </div>
   );
-}
-
-function groupLevels(
-  levels: Level[],
-  tickSize: number,
-  direction: "up" | "down"
-): Level[] {
-  if (levels.length === 0) return [];
-
-  const buckets = new Map<number, number>();
-
-  for (const { price, size } of levels) {
-    // Binance-style grouping: round to the nearest tick
-    const grouped = Math.round(price / tickSize) * tickSize;
-    const key = Number(grouped.toFixed(10));
-    buckets.set(key, (buckets.get(key) || 0) + size);
-  }
-
-  const res = Array.from(buckets.entries()).map(([price, total]) => ({
-    price,
-    size: total,
-  }));
-
-  // Sort based on direction
-  res.sort((a, b) =>
-    direction === "up" ? a.price - b.price : b.price - a.price
-  );
-
-  // Return top 11 levels for display
-  return res.slice(0, 11);
 }

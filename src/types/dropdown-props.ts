@@ -1,7 +1,4 @@
-export interface Option<T extends string | number> {
-  label: string;
-  value: T;
-}
+import type { Option } from "./option";
 
 export interface DropdownProps<T extends string | number> {
   label?: string;

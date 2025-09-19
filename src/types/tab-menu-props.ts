@@ -1,4 +1,4 @@
-export type TabKey = "orderbook" | "trades";
+import type { TabKey } from "./tab-key";
 
 export interface TabMenuProps {
   activeTab: TabKey;

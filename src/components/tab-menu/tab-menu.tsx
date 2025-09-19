@@ -1,4 +1,5 @@
-import type { TabMenuProps } from "../../types/tab-menu";
+import type { TabMenuProps } from "../../types";
+import { TAB_LABELS } from "../../constants";
 import { HiDotsVertical } from "react-icons/hi";
 import styles from "./tab-menu.module.css";
 
@@ -17,13 +18,13 @@ TabMenuProps) {
           } ${styles.orderBookTab}`}
           onClick={() => onChange("orderbook")}
         >
-          Order Book
+          {TAB_LABELS.orderbook}
         </button>
         <button
           className={activeTab === "trades" ? styles.tabActive : styles.tab}
           onClick={() => onChange("trades")}
         >
-          Trades
+          {TAB_LABELS.trades}
         </button>
       </div>
       <button className={styles.action} onClick={onActionClick}>

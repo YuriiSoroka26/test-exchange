@@ -9,11 +9,27 @@
 .header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
-  padding: 8px 12px;
-  color: #8b93a7;
+  gap: 16px;
+  padding: 0 10px;
+  color: #aaaaaa;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
   font-size: 12px;
-  border-bottom: 1px solid #1f232b;
+  line-height: 16px;
+  letter-spacing: 0%;
+}
+
+.header span:nth-child(1) {
+  text-align: left;
+}
+
+.header span:nth-child(2) {
+  text-align: right;
+}
+
+.header span:nth-child(3) {
+  text-align: right;
 }
 
 .body {
@@ -24,22 +40,61 @@
 }
 
 .row {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
-  padding: 6px 12px;
+  gap: 16px;
+  padding: 0 10px;
+  height: 24px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
   font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0%;
+  font-variant-numeric: lining-nums tabular-nums;
+  overflow: hidden;
+  align-items: center;
 }
 
 .time {
-  color: #8b93a7;
+  color: #ffffff;
+  position: relative;
+  z-index: 2;
+  text-align: left;
 }
 .priceBuy {
-  color: #27ae60;
+  color: #1fa67d;
+  position: relative;
+  z-index: 2;
+  text-align: right;
 }
 .priceSell {
-  color: #ff6b6b;
+  color: #ed7088;
+  position: relative;
+  z-index: 2;
+  text-align: right;
 }
 .size {
-  color: #cbd3e1;
+  color: #ffffff;
+  position: relative;
+  z-index: 2;
+  text-align: right;
+}
+
+.skeletonText {
+  height: 12px;
+  background: linear-gradient(90deg, #2a2d35 25%, #3a3d45 50%, #2a2d35 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 2px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }

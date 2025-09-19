@@ -1,6 +1,13 @@
 import type { TradesProps } from "../../types/trades";
 import styles from "./trades.module.css";
 
+function formatNumber(n: number, decimals: number) {
+  return n.toLocaleString(undefined, {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+}
+
 export default function Trades({ trades, symbol = "BTC" }: TradesProps) {
   return (
     <div className={styles.container}>
@@ -10,7 +17,7 @@ export default function Trades({ trades, symbol = "BTC" }: TradesProps) {
         <span>Size ({symbol})</span>
       </div>
       <div className={styles.body}>
-        {trades.map((t, i) => (
+        {trades.slice(0, 24).map((t, i) => (
           <div key={i} className={styles.row}>
             <span className={styles.time}>
               {new Date(t.time).toLocaleTimeString()}
@@ -18,11 +25,9 @@ export default function Trades({ trades, symbol = "BTC" }: TradesProps) {
             <span
               className={t.side === "buy" ? styles.priceBuy : styles.priceSell}
             >
-              {t.price.toLocaleString()}
+              {formatNumber(t.price, 2)}
             </span>
-            <span className={styles.size}>
-              {t.size.toLocaleString(undefined, { maximumFractionDigits: 4 })}
-            </span>
+            <span className={styles.size}>{formatNumber(t.size, 3)}</span>
           </div>
         ))}
       </div>

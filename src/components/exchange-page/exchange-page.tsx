@@ -2,7 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import Layout from "../layout";
 import HeaderBar from "../header-bar";
 import OrderBook from "../order-book";
+import OrderBookSkeleton from "../order-book/order-book-skeleton";
 import Trades from "../trades";
+import TradesSkeleton from "../trades/trades-skeleton";
 import type { TradeItem } from "../../types/trades";
 import type { Level } from "../../types/order-book";
 import type { OrderBookSnapshot } from "../../types/hyperliquid";
@@ -20,40 +22,6 @@ export default function ExchangePage() {
   const [asks, setAsks] = useState<Level[]>([]);
   const [trades, setTrades] = useState<TradeItem[]>([]);
   const [lastTrade, setLastTrade] = useState<LastTrade | undefined>();
-
-  // Add some mock data for testing order book display
-  useEffect(() => {
-    if (bids.length === 0 && asks.length === 0) {
-      const mockBids: Level[] = [
-        { price: 45000, size: 1.5 },
-        { price: 44999, size: 2.3 },
-        { price: 44998, size: 0.8 },
-        { price: 44997, size: 3.1 },
-        { price: 44996, size: 1.2 },
-        { price: 44995, size: 2.1 },
-        { price: 44994, size: 0.7 },
-        { price: 44993, size: 1.9 },
-        { price: 44992, size: 3.3 },
-        { price: 44991, size: 0.6 },
-        { price: 44990, size: 2.8 },
-      ];
-      const mockAsks: Level[] = [
-        { price: 45001, size: 1.1 },
-        { price: 45002, size: 2.7 },
-        { price: 45003, size: 0.9 },
-        { price: 45004, size: 1.8 },
-        { price: 45005, size: 2.2 },
-        { price: 45006, size: 0.5 },
-        { price: 45007, size: 3.4 },
-        { price: 45008, size: 1.3 },
-        { price: 45009, size: 2.6 },
-        { price: 45010, size: 0.8 },
-        { price: 45011, size: 1.7 },
-      ];
-      setBids(mockBids);
-      setAsks(mockAsks);
-    }
-  }, [bids.length, asks.length]);
 
   useEffect(() => {
     const wsUrl = (
@@ -130,15 +98,21 @@ export default function ExchangePage() {
         }
       >
         {activeTab === "orderbook" ? (
-          <OrderBook
-            bids={groupedBids}
-            asks={groupedAsks}
-            tickSize={tickSize}
-            symbol={symbol}
-            lastTrade={lastTrade}
-          />
-        ) : (
+          groupedBids.length > 0 && groupedAsks.length > 0 ? (
+            <OrderBook
+              bids={groupedBids}
+              asks={groupedAsks}
+              tickSize={tickSize}
+              symbol={symbol}
+              lastTrade={lastTrade}
+            />
+          ) : (
+            <OrderBookSkeleton />
+          )
+        ) : trades.length > 0 ? (
           <Trades trades={trades} symbol={symbol} />
+        ) : (
+          <TradesSkeleton />
         )}
       </Layout>
     </div>

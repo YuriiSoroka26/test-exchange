@@ -9,7 +9,7 @@
 .header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
+  gap: 16px;
   padding: 0 10px;
   color: #aaaaaa;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -55,7 +55,7 @@
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
+  gap: 16px;
   padding: 0 10px;
   height: 24px;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -135,4 +135,21 @@
 
 .lastTradeBuy {
   color: #1fa67d;
+}
+
+.skeletonText {
+  height: 12px;
+  background: linear-gradient(90deg, #2a2d35 25%, #3a3d45 50%, #2a2d35 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 2px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }

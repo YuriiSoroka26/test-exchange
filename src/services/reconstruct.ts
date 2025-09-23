@@ -73,5 +73,5 @@ export function reconstructCompletedPerpTrades(
     }
   }
 
-  return completed.sort((a, b) => a.openTime - b.openTime);
+  return completed.sort((a, b) => b.openTime - a.openTime);
 }

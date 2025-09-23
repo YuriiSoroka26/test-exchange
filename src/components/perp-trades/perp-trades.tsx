@@ -10,11 +10,30 @@ export default function PerpTrades() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [trades, setTrades] = useState<CompletedPerpTrade[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const abortRef = useRef<AbortController | null>(null);
+
+  const tradesPerPage = 10;
 
   const disabled = useMemo(
     () => loading || address.trim().length === 0,
     [loading, address]
+  );
+
+  const totalPages = Math.ceil(trades.length / tradesPerPage);
+  const startIndex = (currentPage - 1) * tradesPerPage;
+  const endIndex = startIndex + tradesPerPage;
+  const currentTrades = trades.slice(startIndex, endIndex);
+
+  const resetPagination = useCallback(() => {
+    setCurrentPage(1);
+  }, []);
+
+  const goToPage = useCallback(
+    (page: number) => {
+      setCurrentPage(Math.max(1, Math.min(page, totalPages)));
+    },
+    [totalPages]
   );
 
   const onSubmit = useCallback(
@@ -26,6 +45,7 @@ export default function PerpTrades() {
       setLoading(true);
       setError(null);
       setTrades([]);
+      resetPagination();
       try {
         const fills = await fetchUserFills(address.trim(), controller.signal);
         const completed = reconstructCompletedPerpTrades(fills);
@@ -40,7 +60,7 @@ export default function PerpTrades() {
         setLoading(false);
       }
     },
-    [address]
+    [address, resetPagination]
   );
 
   return (
@@ -82,8 +102,8 @@ export default function PerpTrades() {
                 </tr>
               </thead>
               <tbody>
-                {trades.map((t, idx) => (
-                  <tr key={idx}>
+                {currentTrades.map((t, idx) => (
+                  <tr key={startIndex + idx}>
                     <td>{t.coin}</td>
                     <td>
                       <span
@@ -111,6 +131,27 @@ export default function PerpTrades() {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+        {trades.length > tradesPerPage && (
+          <div className={styles.pagination}>
+            <button
+              className={styles.paginationBtn}
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span className={styles.paginationInfo}>
+              Page {currentPage} of {totalPages} ({trades.length} total trades)
+            </span>
+            <button
+              className={styles.paginationBtn}
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
           </div>
         )}
       </div>

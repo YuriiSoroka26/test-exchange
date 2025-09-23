@@ -177,6 +177,48 @@
   font-weight: 500;
 }
 
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #2a2d35;
+}
+
+.paginationBtn {
+  padding: 8px 16px;
+  background-color: #1a1d23;
+  color: #cbd3e1;
+  border: 1px solid #2a2d35;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.paginationBtn:hover:not(:disabled) {
+  background-color: #2a2d35;
+  border-color: #646cff;
+}
+
+.paginationBtn:disabled {
+  background-color: #0f1114;
+  color: #4a4a4a;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.paginationInfo {
+  color: #8b93a7;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
 /* Responsive design */
 @media (max-width: 1024px) {
   .card {
@@ -187,6 +229,19 @@
   .table th,
   .table td {
     padding: 10px 12px;
+  }
+
+  .pagination {
+    gap: 12px;
+  }
+
+  .paginationBtn {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .paginationInfo {
+    font-size: 13px;
   }
 }
 
@@ -228,6 +283,20 @@
   .table td {
     padding: 8px 12px;
   }
+
+  .pagination {
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .paginationBtn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .paginationInfo {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -255,6 +324,23 @@
   .pill {
     font-size: 10px;
     padding: 2px 6px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .paginationBtn {
+    padding: 8px 12px;
+    font-size: 11px;
+    min-width: 80px;
+  }
+
+  .paginationInfo {
+    font-size: 11px;
+    text-align: center;
   }
 }
 
@@ -302,5 +388,22 @@
   .pill {
     font-size: 9px;
     padding: 1px 4px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .paginationBtn {
+    padding: 6px 10px;
+    font-size: 10px;
+    min-width: 70px;
+  }
+
+  .paginationInfo {
+    font-size: 10px;
+    text-align: center;
   }
 }

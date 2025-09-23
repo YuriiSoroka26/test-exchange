@@ -54,18 +54,16 @@ export function reconstructCompletedPerpTrades(
       } else if (currentTrade && currentTrade.isActive) {
         currentTrade.totalPnl += closedPnl;
         currentTrade.totalFees += fee;
-
         if (Math.abs(endPosition) < 1e-6) {
-          if (Math.abs(currentTrade.totalPnl) > 0.01) {
-            completed.push({
-              coin,
-              direction: currentTrade.direction,
-              openTime: currentTrade.openTime,
-              closeTime: fill.time,
-              durationMs: fill.time - currentTrade.openTime,
-              realizedPnlUsd: currentTrade.totalPnl,
-            });
-          }
+          completed.push({
+            coin,
+            direction: currentTrade.direction,
+            openTime: currentTrade.openTime,
+            closeTime: fill.time,
+            durationMs: fill.time - currentTrade.openTime,
+            realizedPnlUsd: currentTrade.totalPnl,
+          });
+
           currentTrade.isActive = false;
         }
       }

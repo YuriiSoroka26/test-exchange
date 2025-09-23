@@ -16,8 +16,8 @@ export function reconstructCompletedPerpTrades(
 
   for (const [coin, coinFills] of Object.entries(byCoin)) {
     let currentTrade: {
-      direction: "long" | "short";
       openTime: number;
+      direction: "long" | "short";
       totalPnl: number;
       totalFees: number;
       isActive: boolean;
@@ -38,20 +38,19 @@ export function reconstructCompletedPerpTrades(
       const isOpenFill = dir.includes("Open");
 
       if (isOpenFill) {
-        if (currentTrade && currentTrade.isActive) {
-          console.warn(
-            `Incomplete trade detected for ${coin} - starting new position without closing previous one`
-          );
+        if (!currentTrade || !currentTrade.isActive) {
+          const direction = dir.includes("Long") ? "long" : "short";
+          currentTrade = {
+            openTime: fill.time,
+            direction,
+            totalPnl: closedPnl,
+            totalFees: fee,
+            isActive: true,
+          };
+        } else {
+          currentTrade.totalPnl += closedPnl;
+          currentTrade.totalFees += fee;
         }
-
-        const direction = dir.includes("Long") ? "long" : "short";
-        currentTrade = {
-          direction,
-          openTime: fill.time,
-          totalPnl: closedPnl,
-          totalFees: fee,
-          isActive: true,
-        };
       } else if (currentTrade && currentTrade.isActive) {
         currentTrade.totalPnl += closedPnl;
         currentTrade.totalFees += fee;
@@ -73,5 +72,5 @@ export function reconstructCompletedPerpTrades(
     }
   }
 
-  return completed.sort((a, b) => b.openTime - a.openTime);
+  return completed.sort((a, b) => a.openTime - b.openTime);
 }
